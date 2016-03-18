@@ -1,0 +1,3 @@
+[submodule "platforms/android"]
+	path = platforms/android
+	url = https://github.com/UnderSampled/prosign-android.git

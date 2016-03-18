@@ -1,0 +1,33 @@
+{
+  "name": "morse",
+  "version": "1.0.0",
+  "devDependencies": {
+    "babel-eslint": "*",
+    "babel-preset-es2015": "^6.6.0",
+    "del": "*",
+    "event-stream": "^3.3.1",
+    "gulp": "*",
+    "gulp-autoprefixer": "*",
+    "gulp-babel": "*",
+    "gulp-changed": "*",
+    "gulp-connect": "^2.2.0",
+    "gulp-if": "*",
+    "gulp-inject-reload": "*",
+    "gulp-jade": "*",
+    "gulp-livereload": "*",
+    "gulp-load-plugins": "*",
+    "gulp-clean-css": "*",
+    "gulp-minify-html": "*",
+    "gulp-plumber": "^1.0.1",
+    "gulp-rename": "*",
+    "gulp-riot": "*",
+    "gulp-sourcemaps": "*",
+    "gulp-standard": "^5.1.0",
+    "gulp-stylus": "*",
+    "gulp-uglify": "*",
+    "nib": "*"
+  },
+  "standard": {
+    "parser": "babel-eslint"
+  }
+}

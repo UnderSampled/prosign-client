@@ -1,0 +1,64 @@
+﻿body
+  font-family sans-serif
+  background-color rgba(0, 0, 0, 0.1)
+  margin 0
+
+.keyer
+  width 5rem
+  height 5rem
+  border-radius 3rem
+  border none
+  outline none
+  box-shadow 0 2pt 5pt rgba(0, 0, 0, 0.3)
+  transition 0.1s
+  z-index 1
+
+  .hot
+    width 6rem
+    height 6rem	
+    border-radius 3.5rem
+    margin-bottom -0.5rem
+    margin-left -0.5rem
+    margin-right -0.5rem
+    margin-top -0.5rem
+
+.messageBox
+  width calc(100% - 2em)	
+  margin 1em
+  background-color white
+  border-radius 2px
+  box-shadow 0 2pt 5pt rgba(0, 0, 0, 0.3)
+
+  div
+    font-weight bold
+    color #777
+    margin .2em
+    white-space pre
+    overflow hidden
+  
+    span
+      float right
+
+.plot
+  height 3px
+  width 100%
+
+#rx
+  position absolute
+  top 4em
+
+  .keyer
+    background-color beige
+    position absolute
+    top -5em
+    left 3rem
+
+#tx
+  position absolute
+  bottom 4em
+
+  .keyer
+    background-color cornflowerblue
+    position absolute
+    bottom -4rem
+    right 3rem
