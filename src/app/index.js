@@ -46,8 +46,6 @@
   var rxKeyer = rx.getElementsByClassName('keyer')[0]
   rxKeyer.addEventListener('touchend', function () { receive(rxKey, textToCode('This is a test.'), 18) })
 
-  connectToServer('ws://localhost:8080/morse')
-
   function startTone (hz) {
     var context = new AudioContext() // one context per document
     var osc = context.createOscillator() // instantiate an oscillator
@@ -63,20 +61,16 @@
     }
   }
 
-  function connectToServer (url) {
+  (function connect (url, id) {
     var ws = new WebSocket(url)
     ws.onopen = function () {
-      ws.send('KM4DVF')
+      ws.send(id)
     }
     ws.onmessage = function (evt) {
       var msg = evt.data
       console.log(msg)
     }
-
-    return function send (msg) {
-      ws.send(msg)
-    }
-  }
+  })('ws://localhost:8080/morse', window.plugins.uniqueDeviceID.get())
 
   function keyer (box) {
     var keyer = box.getElementsByClassName('keyer')[0]
