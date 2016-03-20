@@ -42,7 +42,6 @@ gulp.task('markup', function () {
   .pipe(p.changed('www'))
    .pipe(p.plumber())
   .pipe(p.if('*.jade', p.jade()))
-  .pipe(p.injectReload({ host: 'http://localhost' }))
   .pipe(p.minifyHtml({ conditionals: true, }))
   .pipe(gulp.dest('www'))
 });
