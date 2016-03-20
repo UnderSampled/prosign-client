@@ -35,16 +35,23 @@
     // TODO: This application has been reactivated. Restore application state here.
   }
 
+  var id = 'steve' + window.screenX.toString() // device['uuid']
+  var serverUrl = 'ws://192.168.0.102/'
+
   var tx = document.getElementById('tx')
   var txKey = keyer(tx)
-  var txKeyer = tx.getElementsByClassName('keyer')[0]
-  txKeyer.addEventListener('touchstart', function () { txKey(true) })
-  txKeyer.addEventListener('touchend', function () { txKey(false) })
 
   var rx = document.getElementById('rx')
   var rxKey = keyer(rx)
-  var rxKeyer = rx.getElementsByClassName('keyer')[0]
-  rxKeyer.addEventListener('touchend', function () { receive(rxKey, textToCode('This is a test.'), 18) })
+
+  var transmit = connect(serverUrl, id, rxKey)
+
+  var txKeyer = tx.getElementsByClassName('keyer')[0]
+  txKeyer.addEventListener('touchstart', function () { txKey(true); transmit(true) })
+  txKeyer.addEventListener('touchend', function () { txKey(false); transmit(false) })
+
+  // var rxKeyer = rx.getElementsByClassName('keyer')[0]
+  // rxKeyer.addEventListener('touchend', function () { receiveCode(rxKey, textToCode('This is a test.'), 18) })
 
   function startTone (hz) {
     var context = new AudioContext() // one context per document
@@ -61,16 +68,24 @@
     }
   }
 
-  (function connect (url, id) {
+  function connect (url, id, rxKey) {
     var ws = new WebSocket(url)
     ws.onopen = function () {
-      ws.send(id)
+      ws.send(['id', id].join(' '))
     }
     ws.onmessage = function (evt) {
-      var msg = evt.data
-      console.log(msg)
+      var cmd = evt.data.split(' ')
+      switch (cmd[0]) {
+        case 'key':
+          if (cmd[1] === 'true') rxKey(true)
+          else rxKey(false)
+          break
+      }
     }
-  })('ws://localhost:8080/morse', window.plugins.uniqueDeviceID.get())
+    return function (state) {
+      ws.send(['key', state].join(' '))
+    }
+  }
 
   function keyer (box) {
     var keyer = box.getElementsByClassName('keyer')[0]
@@ -140,7 +155,7 @@
     return key
   }
 
-  function receive (key, code, wpm) {
+  /* xfunction receiveCode (key, code, wpm) {
     var t = 0
     var signal = []
     var dit = 1200 / wpm
@@ -178,7 +193,7 @@
     var m = message.toUpperCase()
     for (var i = 0, len = message.length; i < len; i++) code.push(textToCodeMap[m[i]])
     return code.join(' ')
-  }
+  } */
 
   /*
   function codeToText (message) {
